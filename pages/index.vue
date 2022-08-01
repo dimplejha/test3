@@ -21,7 +21,7 @@
       /><br /><br />
 
       Mobile:<input
-        type="Number"
+        type="text"
         class="bg-white border border-slate-300 rounded-md py-2 pl-9 pr-3"
         v-model="Table.mobile"
       /><br /><br />
