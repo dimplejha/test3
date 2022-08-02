@@ -1,7 +1,7 @@
 <template>
   <div >
     <div class="bg-amber-700">
-      <form>
+      <form  class="text-center">
       <h1 style="color: red" class="font-bold text-3xl p-6"></h1>
 
       <input type="text" @keyup="userFindByAddress(userAddress)" v-model="userAddress" id="userName" name="userAddress" placeholder="Search for Anything" class="rounded-xl px-5 p-1 m-1">
@@ -50,6 +50,7 @@
           from-indigo-500
           via-purple-500
           to-pink-500
+          mb-4
         "
         v-on:click="submitUserForm()"
       >
@@ -57,7 +58,7 @@
       </button>
       </form>
     </div>
-    <div class="bg-gray-300 col-span-2">
+    <div class="bg-gray-300 col-span-2 ">
       
 
 
