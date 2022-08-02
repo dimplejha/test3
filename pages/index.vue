@@ -11,25 +11,25 @@
       Name:<input
         type="text"
         class="bg-white border border-slate-300 rounded-md py-2 pl-9 pr-3"
-        v-model="user.name" name="name" id="name" placeholder="Name"
+        v-model="user.name" name="name" id="name" placeholder="Name" required
       /><br /><br />
 
       Email:<input
         type="email"
         class="bg-white border border-slate-300 rounded-md py-2 pl-9 pr-3"
-        v-model="user.email" name="email" id="email" placeholder="Email"
+        v-model="user.email" name="email" id="email" placeholder="Email" required
       /><br /><br />
 
       Mobile:<input
         type="text"
         class="bg-white border border-slate-300 rounded-md py-2 pl-9 pr-3"
-        v-model="user.mobile" name="mobile" id="moile" placeholder=" Mobile No."
+        v-model="user.mobile" name="mobile" id="mobile" placeholder=" Mobile No."  max="10" required
       /><br /><br />
 
       Address:<input
         type="text"
         class="bg-white border border-slate-300 rounded-md py-2 pl-9 pr-3"
-        name="address" v-model="user.address" id="address" placeholder="Address"
+        name="address" v-model="user.address" id="address" placeholder="Address" required
       /><br /><br />
 
       
@@ -81,7 +81,7 @@
             {{ user.email }}
           </td>
           <td class="px-4 border-blue-400 rounded-lg border-2">
-            {{ user.number }}
+            {{ user.mobile }}
           </td>
           <td class="px-4 border-blue-400 rounded-lg border-2">
             {{ user.address }}
@@ -182,10 +182,56 @@ export default {
     methods: {
         submitUserForm(event){
             event.preventDefault(event);
-            console.log(this.user);
+            console.log(this.user)
 
 
-            
+
+
+            this.emailMatch = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                // if(this.userData.email.matchAll(this.emailMatch)){
+                if(this.emailMatch.test(this.user.email)){
+                    // alert("Email is valid");
+                    // console.log("Email is valid");
+                }else{
+                    alert("Email is Invalid");
+                    this.resetForm();
+                }
+            // Validation for Email
+if (isNaN(this.user.mobile) || this.user.mobile < 1000000000 || this.user.mobile > 9999999999) {
+                alert("Mobile Number is Invalid");
+                this.resetForm();
+            } else {
+                // alert("Mobile Number is valid");
+            }
+            //   // Validation for Address
+            // if(this.userData.address!=''){
+                if(this.user.address==null || this.user.address==""){
+                    alert("Please Enter Address");
+                    // console.log("Please Enter Address");
+                    this.resetForm();
+            }else{
+                    // alert("Address is valid");
+            }
+            // Check Email id is unique or not
+            this.uniqueEmail = this.allUserData.filter((e) => {
+                if(e.email != this.user.email){
+                    console.log(e);
+                }else{
+                    if(this.isEdit===true){
+                        this.allUserData[this.indexEdit]=this.user;
+                    }else{
+                        alert("Email Already Registered");
+                        this.resetForm();
+                    }
+                }
+            });
+
+
+
+           
+
+
+
             
             // Check Email id is unique or not
             this.uniqueEmail = this.allUserData.filter((e) => {
@@ -211,7 +257,7 @@ export default {
                 }
                 else{
                     
-                    // alert("unable to update");
+                    //alert("unable to update");
                     if(this.user.email== ''){
                             alert("Please enter unique Email Id")
                     }else{
@@ -294,7 +340,7 @@ export default {
                     // toLocaleLowerCase
                     console.log(e);
                     return e;
-                    // alert("user Found" + e.firstName+ ""+e.lastName);
+                    alert("user Found" + e.firstName+ ""+e.lastName);
                 }
             });
             console.log(this.userFound);
