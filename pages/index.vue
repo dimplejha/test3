@@ -4,11 +4,6 @@
       <form>
       <h1 style="color: red" class="font-bold text-3xl p-6"></h1>
 
-
-<!-- <input type="text"  @keyup="userFindByName(userName)" v-model="userName" id="userName" name="userName" placeholder="Find by Name" class="rounded-xl p-1 m-1">
-            <input type="text" @keyup="userFindByEmail(userEmail)" v-model="userEmail" id="userEmail" name="userEmail" placeholder="Find by Email" class="rounded-xl p-1 m-1">
-            <input type="number" @keyup="userFindByMobile(userMob)" v-model="userMob" id="userMob" name="userMob" placeholder="Find by Mob" class="rounded-xl p-1 m-1">--->
-            <input type="text" @keyup="userFindByAddres(userAddress)" v-model="userAddress" id="userName" name="userAddress" placeholder="Find by Address" class="rounded-xl p-1 m-1"> 
                   <input type="text" @keyup="userFindByAddress(userAddress)" v-model="userAddress" id="userName" name="userAddress" placeholder="Search for Anything" class="rounded-xl px-5 p-1 m-1">
 
 
@@ -63,7 +58,7 @@
       </form>
     </div>
     <div class="bg-gray-300 col-span-2">
-      <table class=" border-black-400 border-separate bg-white  border border-slate-400 m-20" >
+      <!-- <table class=" border-black-400 border-separate bg-white  border border-slate-400 m-20" >
         <tr v-for="(user, i) in allUserData" :key="user" >
                     <td class="border border-1 border-stone-800">{{user.name}}</td>
                     <td class="border border-1 border-stone-800">{{user.email}}</td>
@@ -72,9 +67,92 @@
                     <td class="border border-1 border-stone-800"><button @click="onEdit(i)" class="bg-black hover:bg-gray-800 p-1 px-2 rounded-lg text-white" id="edit" type="button">Edit</button></td>
                     <td class="border border-1 border-stone-800"><button @click="deleteUser(i)" class="bg-black hover:bg-red-800 p-1 px-2 rounded-lg text-white" id="delete" type="button">Delete</button></td>
                 </tr>
+      </table> -->
+
+
+      <table  id="list">
+        <tr>
+          <!-- <th class="px-4 border-black rounded-lg border-2">id</th> -->
+          <th class="px-4 border-blue-400 rounded-lg border-2">Name</th>
+          <th class="px-4 border-blue-400 rounded-lg border-2">Email</th>
+          <th class="px-4 border-blue-400 rounded-lg border-2">Mobile</th>
+          <th class="px-4 border-blue-400 rounded-lg border-2">Address</th>
+          <th class="px-4 border-blue-400 rounded-lg border-2">Action</th>
+        </tr>
+        <tr
+         v-for="(user, i) in allUserData" :key="user"
+        >
+          <!-- <td class="px-4 border-black rounded-lg border-2">{{item.id=i+1}}</td> -->
+          <td class="px-4 border-blue-400 rounded-lg border-2">
+            {{ user.name }}
+          </td>
+          <td class="px-4 border-blue-400 rounded-lg border-2">
+            {{ user.email }}
+          </td>
+          <td class="px-4 border-blue-400 rounded-lg border-2">
+            {{ user.number }}
+          </td>
+          <td class="px-4 border-blue-400 rounded-lg border-2">
+            {{ user.address }}
+          </td>
+          <td class="px-4 border-blue-400 rounded-lg border-2">
+            {{ user.Action }}
+            <button
+              class="mx-3 rounded-lg bg-red-400 hover:bg-red-600 text-white w-20"
+              @click="deleteUser(i)"
+            >
+              Delete
+            </button>
+            <button
+              class="mx-3 rounded-lg bg-green-400 hover:bg-green-600 text-white w-20"
+              @click="onEdit(i)"
+            >
+              Edit
+            </button>
+          </td>
+        </tr>
       </table>
+
+
     </div>
   </div>
+
+
+
+
+
+
+<hr class=" mt-4 border-4 border-orange-600">
+    <div>
+        <table  class="w-full border-1 m-3 border-stone-800">
+                <!-- v-show="allUserData.length>=1" -->
+                <tr class="border border-1 border-stone-800">
+                    <th class="border border-1 border-stone-800">Name</th>
+                    <th class="border border-1 border-stone-800">Email</th>
+                    <th class="border border-1 border-stone-800">Mobile</th>
+                    <th class="border border-1 border-stone-800">Address</th>
+                    <!-- <th class="border border-1 border-stone-800" colspan="2">Action</th> -->
+                    
+                </tr>
+
+                <tr v-for="item in userFound" :key="item" >
+                    <td class="border border-1 border-stone-800">{{item.name}}</td>
+                    <td class="border border-1 border-stone-800">{{item.email}}</td>
+                    <td class="border border-1 border-stone-800">{{item.mobile}}</td>
+                    <td class="border border-1 border-stone-800">{{item.address}}</td>
+                    <!-- <td class="border border-1 border-stone-800"><button @click="onEdit(i)" class="bg-black hover:bg-gray-800 p-1 px-2 rounded-lg text-white" id="edit" type="button">Edit</button></td> -->
+                    <!-- <td class="border border-1 border-stone-800"><button @click="deleteUser(i)" class="bg-black hover:bg-red-800 p-1 px-2 rounded-lg text-white" id="delete" type="button">Delete</button></td> -->
+                </tr>
+            </table>
+    </div>
+
+
+
+
+
+
+
+
 </template>
 <script>
 export default {
@@ -193,8 +271,48 @@ export default {
         },
         
         
+        // // Find user by Address in array
+        // userFindByAddres(userAddress){         
+        //     console.log(userAddress);
+        //     this.userFound = this.allUserData.filter((e) => {
+        //         // if(e.address == userAddress)
+        //         this.address1 = userAddress.toLocaleLowerCase();
+        //         console.log(this.address1);
+        //         this.address2 = e.address.toLocaleLowerCase();
+        //         this.name1 = userAddress.toLocaleLowerCase();
+        //         this.name2 = e.name.toLocaleLowerCase();
+        //         this.email1 = userAddress.toLocaleLowerCase();
+        //         this.email2 = e.email.toLocaleLowerCase();
+        //         this.mobile1 = userAddress.toString();
+        //         this.mobile2 = e.mobile.toString();
+        //         if(this.address2.startsWith(this.address1) || this.name2.startsWith(this.name1) || this.email2.startsWith(this.email1) || this.mobile2.startsWith(this.mobile1)  ){
+        //             // toLocaleLowerCase
+        //             console.log(e);
+        //             return e;
+        //             // alert("user Found" + e.firstName+ ""+e.lastName);
+        //         }
+        //     }); 
+        //     console.log(this.userFound);           
+        // },
+
+        // userFindByAddress(userName){
+        //     console.log(userName);
+        //     this.userFound = this.users.filter((e) => {
+        //         // if(e.name == userName)
+        //         if(e.fname.startsWith(userName)){
+        //             console.log(e);
+        //             // if(e.name.startsWith(userName))
+        //             return e;
+        //             // alert("user Found" + e.firstName+ ""+e.lastName);
+        //         }
+        //     });
+        //     console.log(this.userFound);
+        // },
+
+
+
         // Find user by Address in array
-        userFindByAddres(userAddress){         
+        userFindByAddress(userAddress){
             console.log(userAddress);
             this.userFound = this.allUserData.filter((e) => {
                 // if(e.address == userAddress)
@@ -213,24 +331,10 @@ export default {
                     return e;
                     // alert("user Found" + e.firstName+ ""+e.lastName);
                 }
-            }); 
-            console.log(this.userFound);           
-        },
-
-        userFindByAddress(userName){
-            console.log(userName);
-            this.userFound = this.users.filter((e) => {
-                // if(e.name == userName)
-                if(e.fname.startsWith(userName)){
-                    console.log(e);
-                    // if(e.name.startsWith(userName))
-                    return e;
-                    // alert("user Found" + e.firstName+ ""+e.lastName);
-                }
             });
             console.log(this.userFound);
         },
     },
-    }
+    
 }
 </script>
